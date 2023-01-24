@@ -16,6 +16,15 @@ private val HEX_PATTERN: Pattern = Pattern.compile("#([A-Fa-f0-9]){6}")
 fun String.color(): String {
     var translation = this.colorLegacy()
 
+    val plugin: Plugin? = Bukkit.getPluginManager().getPlugin("FrozenJoin")
+
+    if (plugin != null && plugin.isEnabled) {
+        val format = plugin.config.getString("hexa-formatting")
+        if (format != null && format == "&#"){
+            translation = translation.replace("&#", "#")
+        }
+    }
+
     var matcher = HEX_PATTERN.matcher(translation)
 
     while (matcher.find()) {

@@ -238,3 +238,8 @@ placeholder-cache:
 # If you want bstats to track your server leave this enabled,
 # otherwise disable it by setting it to false
 stonks: true
+
+# Here you can fix your placeholders. A lot of plugins format hex
+# using only '#', but others plugins use '&#'. Here you can select what type
+# of formatting hex colors the plugin should use: '&#' or '#'
+hexa-formatting: '#'
