@@ -35,7 +35,7 @@ object MessageFormatter {
         if (motd == null) {
             if (command) {
                 if (settings.debug) plugin.logger.info("Executor ${player.name} executed action 'motd'")
-                player.sendTranslatedMessage(message, cache)
+                player.sendTranslatedMessage(message, settings.hexPatterns, cache)
             }
             return
         }

@@ -2,6 +2,7 @@ package com.github.frcsty.actions.action.broadcast
 
 import com.github.frcsty.actions.action.Action
 import com.github.frcsty.actions.cache.PlaceholderCache
+import com.github.frcsty.actions.load.Settings
 import com.github.frcsty.actions.util.color
 import com.github.frcsty.actions.util.getTranslatedMessage
 import org.bukkit.Bukkit
@@ -10,7 +11,7 @@ import org.bukkit.entity.Player
 object ActionbarBroadcastAction : Action {
     override val id = "ACTIONBARBROADCAST"
 
-    override fun run(player: Player, data: String, cache: PlaceholderCache?) {
-        Bukkit.getServer().onlinePlayers.forEach { it.sendActionBar(data.getTranslatedMessage(player, cache).color()) }
+    override fun run(player: Player, data: String, settings: Settings, cache: PlaceholderCache?) {
+        Bukkit.getServer().onlinePlayers.forEach { it.sendActionBar(data.getTranslatedMessage(player, cache).color(settings.hexPatterns)) }
     }
 }

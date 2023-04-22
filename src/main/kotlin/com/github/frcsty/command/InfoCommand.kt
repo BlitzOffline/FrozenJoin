@@ -30,7 +30,7 @@ class InfoCommand(
         val lines = messageLoader.getMessageList("infoMessage")
 
         for (line in lines) {
-            sender.sendMessage((line.replacePlaceholder("{version}", settings.pluginVersion)).color())
+            sender.sendMessage((line.replacePlaceholder("{version}", settings.pluginVersion)).color(settings.hexPatterns))
         }
 
         if (settings.debug) logger.info("Executor ${sender.name} executed action 'info'")

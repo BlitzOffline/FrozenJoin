@@ -25,10 +25,11 @@ class Loader(private val plugin: FrozenJoinPlugin) : Loader {
     override val actionHandler = ActionHandler(plugin, this, settings)
     val formatManager = FormatManager(plugin)
     val positionStorage = PositionStorage
-    private val messageLoader = MessageLoader(plugin)
+    private val messageLoader = MessageLoader(plugin, settings)
 
     fun initialize() {
         plugin.saveDefaultConfig()
+        settings.loadHexPatterns()
         positionStorage.initialize(plugin)
         messageLoader.load()
 
@@ -73,16 +74,16 @@ class Loader(private val plugin: FrozenJoinPlugin) : Loader {
         val handler = manager.messageHandler
         with(handler) {
             register("cmd.no.console") { sender: CommandSender ->
-                sender.sendMessage(messages.getMessage("playerOnlyMessage").color())
+                sender.sendMessage(messages.getMessage("playerOnlyMessage").color(settings.hexPatterns))
             }
             register("cmd.no.permission") { sender: CommandSender ->
-                sender.sendMessage(messages.getMessage("denyMessage").color())
+                sender.sendMessage(messages.getMessage("denyMessage").color(settings.hexPatterns))
             }
             register("cmd.no.exists") { sender: CommandSender ->
-                sender.sendMessage(messages.getMessage("unknownCommandMessage").color())
+                sender.sendMessage(messages.getMessage("unknownCommandMessage").color(settings.hexPatterns))
             }
             register("cmd.wrong.usage") { sender: CommandSender ->
-                sender.sendMessage(messages.getMessage("usageMessage").color())
+                sender.sendMessage(messages.getMessage("usageMessage").color(settings.hexPatterns))
             }
         }
     }

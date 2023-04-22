@@ -2,6 +2,7 @@ package com.github.frcsty.actions.action.player
 
 import com.github.frcsty.actions.action.Action
 import com.github.frcsty.actions.cache.PlaceholderCache
+import com.github.frcsty.actions.load.Settings
 import com.github.frcsty.actions.util.color
 import com.github.frcsty.actions.util.getTranslatedMessage
 import org.bukkit.entity.Player
@@ -10,7 +11,7 @@ object TitleMessageAction : Action {
 
     override val id = "TITLEMESSAGE"
 
-    override fun run(player: Player, data: String, cache: PlaceholderCache?) {
+    override fun run(player: Player, data: String, settings: Settings, cache: PlaceholderCache?) {
         val args = data.split(";")
 
         val (title, subtitle) = args
@@ -19,8 +20,8 @@ object TitleMessageAction : Action {
         val fadeOut = args.getOrNull(5)?.toIntOrNull() ?: DEFAULT_FADE_OUT
 
         player.sendTitle(
-            title.getTranslatedMessage(player, cache).color(),
-            subtitle.getTranslatedMessage(player, cache).color(),
+            title.getTranslatedMessage(player, cache).color(settings.hexPatterns),
+            subtitle.getTranslatedMessage(player, cache).color(settings.hexPatterns),
             fadeIn,
             stay,
             fadeOut

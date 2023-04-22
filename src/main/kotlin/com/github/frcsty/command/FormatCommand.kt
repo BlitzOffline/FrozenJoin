@@ -5,6 +5,7 @@ import com.github.frcsty.actions.util.replacePlaceholder
 import com.github.frcsty.actions.util.sendTranslatedMessage
 import com.github.frcsty.configuration.MessageLoader
 import com.github.frcsty.load.Loader
+import com.github.frcsty.load.Settings
 import com.github.frcsty.util.removeCustomMessage
 import com.github.frcsty.util.setCustomMessage
 import me.mattstudios.mf.annotations.Alias
@@ -51,7 +52,8 @@ class FormatCommand(private val messageLoader: MessageLoader, private val loader
             player,
             messageLoader.getMessage("customMessageSetTargetMessage")
                 .replacePlaceholder("%type%", argument.lowercase())
-                .replacePlaceholder("%message%", message.color()),
+                .replacePlaceholder("%message%", message.color(loader.settings.hexPatterns)),
+            loader.settings.hexPatterns,
             loader.placeholderCache
         )
     }
@@ -76,6 +78,6 @@ class FormatCommand(private val messageLoader: MessageLoader, private val loader
         }
 
         sender.sendTranslatedMessage(player, messageLoader.getMessage("customMessageRemoveTargetMessage")
-                .replacePlaceholder("%type%", argument.lowercase()), loader.placeholderCache)
+                .replacePlaceholder("%type%", argument.lowercase()), loader.settings.hexPatterns, loader.placeholderCache)
     }
 }
