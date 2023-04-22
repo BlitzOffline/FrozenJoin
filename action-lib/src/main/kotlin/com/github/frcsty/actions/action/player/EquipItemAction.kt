@@ -2,6 +2,7 @@ package com.github.frcsty.actions.action.player
 
 import com.github.frcsty.actions.action.Action
 import com.github.frcsty.actions.cache.PlaceholderCache
+import com.github.frcsty.actions.load.Settings
 import com.github.frcsty.actions.util.color
 import com.github.frcsty.actions.util.getTranslatedMessage
 import org.bukkit.Material
@@ -12,7 +13,7 @@ object EquipItemAction : Action {
 
     override val id = "EQUIP"
 
-    override fun run(player: Player, data: String, cache: PlaceholderCache?) {
+    override fun run(player: Player, data: String, settings: Settings, cache: PlaceholderCache?) {
         val args = data.split(";")
         val vars: List<String> = args[0].split(",")
         val useData = vars.size == 2
@@ -32,9 +33,9 @@ object EquipItemAction : Action {
         }
 
         val meta = item.itemMeta
-        meta.setDisplayName(display.getTranslatedMessage(player, cache).color())
+        meta.setDisplayName(display.getTranslatedMessage(player, cache).color(settings.hexPatterns))
         if (lore.isNotEmpty()) {
-            meta.lore = lore.map { it.getTranslatedMessage(player, cache).color() }
+            meta.lore = lore.map { it.getTranslatedMessage(player, cache).color(settings.hexPatterns) }
         }
 
         item.itemMeta = meta

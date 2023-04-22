@@ -44,7 +44,7 @@ class ReloadCommand(
         }.runTaskAsynchronously(plugin)
 
         val estimatedTime = System.currentTimeMillis() - startTime
-        sender.sendMessage((message.replace("%time%", estimatedTime.toString()).color()))
+        sender.sendMessage((message.replace("%time%", estimatedTime.toString()).color(loader.settings.hexPatterns)))
 
         if (loader.settings.debug) plugin.logger.info("Executor ${sender.name} executed action 'reload'")
     }

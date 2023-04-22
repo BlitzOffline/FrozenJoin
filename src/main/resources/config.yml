@@ -237,6 +237,17 @@ placeholder-cache:
   placeholders:
     - "%luckperms_prefix%"
 
+# Hex colors are parsed in the following order: old -> ampersand -> simple. This means there shouldn't be any conflicts
+# so multiple patterns can be enabled at the same time. More patterns to be added in the future?
+hex-patterns:
+  # Enable support for the #<aaFF00> hex pattern
+  old: true
+  # Enable support for the &#aaFF00 hex pattern
+  ampersand: true
+  # Enable support for the #aaFF00 hex pattern
+  simple: true
+
+
 # If you want bstats to track your server leave this enabled,
 # otherwise disable it by setting it to false
 stonks: true

@@ -31,7 +31,7 @@ class HelpCommand(
         val help = messageLoader.getMessageList("helpMessage")
 
         for (line in help) {
-            sender.sendMessage(line.replacePlaceholder("{version}", settings.pluginVersion).color())
+            sender.sendMessage(line.replacePlaceholder("{version}", settings.pluginVersion).color(settings.hexPatterns))
         }
 
         if (settings.debug) logger.info("Executor ${sender.name} executed action 'help'")

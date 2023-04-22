@@ -2,6 +2,7 @@ package com.github.frcsty.actions.action.player
 
 import com.github.frcsty.actions.action.Action
 import com.github.frcsty.actions.cache.PlaceholderCache
+import com.github.frcsty.actions.load.Settings
 import com.github.frcsty.actions.util.DefaultFontInfo
 import com.github.frcsty.actions.util.color
 import com.github.frcsty.actions.util.getTranslatedMessage
@@ -13,8 +14,8 @@ object CenterMessageAction : Action {
     private const val MAX_PX = 250
     override val id = "CENTERMESSAGE"
 
-    override fun run(player: Player, data: String, cache: PlaceholderCache?) {
-        var message = data.getTranslatedMessage(player, cache).color()
+    override fun run(player: Player, data: String, settings: Settings, cache: PlaceholderCache?) {
+        var message = data.getTranslatedMessage(player, cache).color(settings.hexPatterns)
         var messagePxSize = 0
 
         var previousCode = false

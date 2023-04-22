@@ -4,6 +4,7 @@ import com.github.frcsty.actions.cache.PlaceholderCache
 import org.bukkit.entity.Player
 import org.bukkit.plugin.Plugin
 import org.bukkit.scheduler.BukkitRunnable
+import java.util.regex.Pattern
 
 fun getPersistentActionbarMessageAndTime(data: String): Pair<Long, String> {
     val split = data.split(";", limit = 2)
@@ -18,7 +19,8 @@ fun sendPersistentActionbarMessage(
     data: String,
     cache: PlaceholderCache?,
     actionPlayer: Player,
-    recipientPlayers: Collection<Player>
+    recipientPlayers: Collection<Player>,
+    hexPatterns: LinkedHashSet<Pattern>
 ) {
     val (time, message) = getPersistentActionbarMessageAndTime(data)
 
@@ -31,7 +33,7 @@ fun sendPersistentActionbarMessage(
             }
 
             for (recipientPlayer in recipientPlayers) {
-                recipientPlayer.sendActionBar(message.getTranslatedMessage(actionPlayer, cache).color())
+                recipientPlayer.sendActionBar(message.getTranslatedMessage(actionPlayer, cache).color(hexPatterns))
             }
 
         }

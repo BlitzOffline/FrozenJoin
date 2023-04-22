@@ -2,6 +2,7 @@ package com.github.frcsty.actions.action.broadcast
 
 import com.github.frcsty.actions.action.Action
 import com.github.frcsty.actions.cache.PlaceholderCache
+import com.github.frcsty.actions.load.Settings
 import com.github.frcsty.actions.util.color
 import com.github.frcsty.actions.util.getTranslatedMessage
 import org.bukkit.Bukkit
@@ -10,7 +11,7 @@ import org.bukkit.entity.Player
 object TitleBroadcastAction : Action {
     override val id = "TITLEBROADCAST"
 
-    override fun run(player: Player, data: String, cache: PlaceholderCache?) {
+    override fun run(player: Player, data: String, settings: Settings, cache: PlaceholderCache?) {
         val args = data.split(";")
 
         val (title, subtitle) = args
@@ -20,8 +21,8 @@ object TitleBroadcastAction : Action {
 
         Bukkit.getServer().onlinePlayers.forEach {
             it.sendTitle(
-                title.getTranslatedMessage(player, cache).color(),
-                subtitle.getTranslatedMessage(player, cache).color(),
+                title.getTranslatedMessage(player, cache).color(settings.hexPatterns),
+                subtitle.getTranslatedMessage(player, cache).color(settings.hexPatterns),
                 fadeIn,
                 stay,
                 fadeOut
