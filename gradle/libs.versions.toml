@@ -1,7 +1,7 @@
 [versions]
 # Compile only
 paper = "1.17-R0.1-SNAPSHOT"
-papi = "2.11.2"
+papi = "2.11.6"
 bstats = "3.0.0"
 
 #Implementation

@@ -1,20 +1,18 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("com.github.johnrengelman.shadow") version "7.1.2"
-    kotlin("jvm") version "1.7.20"
+    id("com.gradleup.shadow") version "9.2.2"
+    kotlin("jvm") version "2.2.20"
 }
 
 group = "com.github.frcsty"
 version = "2.3.2-builds"
 
 val libsPath = "com.github.frcsty.frozenjoin"
-val javaVersion = JavaVersion.VERSION_16
 
 repositories {
     mavenCentral()
-    maven("https://papermc.io/repo/repository/maven-public/")
+    maven("https://repo.papermc.io/repository/maven-public/")
     maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
     maven("https://repo.codemc.org/repository/maven-public")
     maven("https://jitpack.io/")
@@ -30,18 +28,19 @@ dependencies {
 }
 
 java {
-    sourceCompatibility = javaVersion
-    targetCompatibility = javaVersion
+    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+kotlin {
+    jvmToolchain(17)
 }
 
 tasks {
     withType<ProcessResources> {
-        expand("version" to project.version)
-    }
-
-    withType<KotlinCompile> {
-        kotlinOptions {
-            jvmTarget = javaVersion.majorVersion
+        filesMatching(listOf("plugin.yml", "config.yml")) {
+            expand("version" to project.version)
         }
     }
 
